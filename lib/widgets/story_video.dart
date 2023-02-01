@@ -25,8 +25,8 @@ class VideoLoader {
       onComplete();
     }
 
-    final fileStream = DefaultCacheManager()
-        .getFileStream(this.url, headers: this.requestHeaders as Map<String, String>?);
+    final fileStream = DefaultCacheManager().getFileStream(this.url,
+        headers: this.requestHeaders as Map<String, String>?);
 
     fileStream.listen((fileResponse) {
       if (fileResponse is FileInfo) {
@@ -99,6 +99,12 @@ class StoryVideoState extends State<StoryVideo> {
         }
       } else {
         setState(() {});
+      }
+    });
+    playerController!.addListener(() {
+      if (playerController!.value.position ==
+          playerController!.value.duration) {
+        widget.storyController!.next();
       }
     });
   }
