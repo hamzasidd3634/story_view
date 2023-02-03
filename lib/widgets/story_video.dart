@@ -85,6 +85,12 @@ class StoryVideoState extends State<StoryVideo> {
         playerController!.initialize().then((v) {
           setState(() {});
           widget.storyController!.play();
+          playerController!.addListener(() {
+            if (playerController!.value.position ==
+                playerController!.value.duration) {
+              widget.storyController!.next();
+            }
+          });
         });
 
         if (widget.storyController != null) {
@@ -99,12 +105,6 @@ class StoryVideoState extends State<StoryVideo> {
         }
       } else {
         setState(() {});
-      }
-    });
-    playerController!.addListener(() {
-      if (playerController!.value.position ==
-          playerController!.value.duration) {
-        widget.storyController!.next();
       }
     });
   }
